@@ -1,19 +1,17 @@
 from pathlib import Path
-import Typer
-from ssg.site import Site
 
 class Site:
-    def site(self, source, dest):
-        self.Path(source)
-        self.Path(dest)
+    def __init__(self, source, dest):
+        self.source = Path(source)
+        self.dest = Path(dest)
 
     def create_dir(self, path):
-        directory = destination / relative_to(self.dest)/ relative_to(self.source)
-        mkdir(directory, parents=True, exists_ok=True)
+        directory = self.dest / path.relative_to(self.source)
+        directory.mkdir(parents=True, exists_ok=True)
 
     def build():
-        mkdir(self.dest, parents=True, exists_ok=True)
+        self.dest.mkdir(parents=True, exists_ok=True)
         for path in self.source.rglob("*"):
-            if path.isdir(path):
+            if path.isdir():
                 create_dir(path)
 

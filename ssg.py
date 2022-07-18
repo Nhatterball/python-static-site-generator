@@ -3,10 +3,8 @@ from ssg.site import Site
 
 def main(source = "content", dest = "dist"):
     config = {"source": source, "dest" : dest}
-    Site(source, dest)
+    Site(**config).build()
 
 typer.run(main())
 
 
-if __name__ == "__main__":
-    main()
