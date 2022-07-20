@@ -36,20 +36,19 @@ class ResourceParser(Parser):
 class MarkdownParser:
     extension = [".md", ",markdown"]
 
-    def parse(self, path: Path, source : Path, dest: Path):
+    def parse(self, path, source,dest):
         content = Content.load(self.read(path))
-        html = self.markdown(content.body)
-        self.write(html, path, dest)
-        sys.stdout.write("\x1b[1;32m{} converted to HTML. Metadata: {}\n").format(path.name, content)
-        raise NotImplementedError
+        html = markdown(content.body)
+        self.write(path, dest, html)
+        sys.stdout.write("\x1b[1;32m{} converted to HTML. Metadata: {}\n".format(path.name, content))
 
 class ReStructuredTextParser:
     extensions = [",rst"]
-    def parse(self, path: Path, source : Path, dest: Path, writer_name: "html5"):
+    def parse(self, path, source, dest):
         content = Content.load(self.read(path))
-        self.publish_parts(content.body)
-        self.write(html["html_body"], path, dest)
-        sys.stdout.write("\x1b[1;32m{} converted to HTML. Metadata: {}\n").format(path.name, content)
+        html = publish_parts(content.body, writer_name ="html5")
+        self.write(path, dest, html["html_body"])
+        sys.stdout.write("\x1b[1;32m{} converted to HTML. Metadata: {}\n".format(path.name, content))
         raise NotImplementedError
 
     
