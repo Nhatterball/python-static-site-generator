@@ -5,10 +5,10 @@ import shutil
 class Parser:
     extensions : List[str] = []
 
-    def valid_extension(self, exstension):
+    def valid_extension(self, extension):
         return exstension in self.extensions
 
-    def parse(self, path, source, dest):
+    def parse(self, path: Path, source : Path, dest: Path):
         raise NotImplementedError()
 
     def read(self,path):
@@ -16,8 +16,8 @@ class Parser:
             return file.read()
         
     def write(self, path, dest, content, ext=".html"):
-        full_path = self.dest / path.with_suffix(ext).name
-        with open(path, "w") as file:
+        full_path = dest / path.with_suffix(ext).name
+        with open(full_path, "w") as file:
             return file.write(content)
 
     def copy(self, path, source, dest):
