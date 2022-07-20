@@ -29,7 +29,7 @@ class Content(Mapping):
         if "type" in self.data: 
             return self.data["type"]
         else:
-            return None
+            None
             
     @type.setter
     def type(self, type):
